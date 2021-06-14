@@ -4,6 +4,9 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
 import { JwtAuthGuard } from './auth/jwt-auth.gard';
+import { Roles } from './auth/roles.decorator';
+import { UserRoles } from './entities/UserRoles';
+import { RolesGuard } from './auth/roles.guard';
 
 @Controller('api/users')
 export class UsersController {
@@ -31,9 +34,9 @@ export class UsersController {
 
 
   @Get()
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRoles.ADMIN)
   findAll(@Request() req) {
-    console.log(req.user)
     return this.usersService.findAll();
   }
 
