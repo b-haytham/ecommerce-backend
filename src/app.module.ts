@@ -3,6 +3,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UsersModule } from './users/users.module';
 import { AddressesModule } from './addresses/addresses.module';
+import { JwtModule } from '@nestjs/jwt';
+import { CustomersModule } from './customers/customers.module';
 
 @Module({
   imports: [
@@ -16,6 +18,7 @@ import { AddressesModule } from './addresses/addresses.module';
       inject: [ConfigService],
     }),
     AddressesModule,
+    CustomersModule,
   ],
   controllers: [],
   providers: [],

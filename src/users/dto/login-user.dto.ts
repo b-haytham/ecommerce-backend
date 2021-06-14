@@ -1,10 +1,7 @@
 import { IsEmail, IsString, MinLength } from "class-validator"
 
-export class CreateUserDto {
 
-    first_name?: string
-    last_name?: string
-
+export class LoginUserDto {
     @IsString()
     @MinLength(5)
     password: string

@@ -11,7 +11,8 @@ export class AddressesService {
   constructor(@InjectModel(Address.name) private addressModel: Model<AddressDocument>) {}
 
   create(createAddressDto: CreateAddressDto) {
-    return 'This action adds a new address';
+    return createAddressDto
+    //return 'This action adds a new address';
   }
 
   findAll() {
