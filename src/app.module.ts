@@ -5,10 +5,12 @@ import { UsersModule } from './users/users.module';
 import { AddressesModule } from './addresses/addresses.module';
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { CustomersModule } from './customers/customers.module';
-import { CurrentUserMiddleware } from './middlewares/CurrentUserMiddleware';
-import { UsersService } from './users/users.service';
 import { CategoriesModule } from './categories/categories.module';
 import { SubcategoriesModule } from './subcategories/subcategories.module';
+import { BrandsModule } from './brands/brands.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+
+import * as path from 'path'
 
 @Module({
   imports: [
@@ -21,10 +23,14 @@ import { SubcategoriesModule } from './subcategories/subcategories.module';
       }),
       inject: [ConfigService],
     }),
+    ServeStaticModule.forRoot({
+      rootPath: path.join(__dirname, '..', 'public')
+    }),
     AddressesModule,
     CustomersModule,
     CategoriesModule,
     SubcategoriesModule,
+    BrandsModule,
   ],
   controllers: [],
   providers: [],
