@@ -9,6 +9,7 @@ import { CategoriesModule } from './categories/categories.module';
 import { SubcategoriesModule } from './subcategories/subcategories.module';
 import { BrandsModule } from './brands/brands.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { SizesModule } from './sizes/sizes.module';
 
 import * as path from 'path'
 
@@ -31,6 +32,7 @@ import * as path from 'path'
     CategoriesModule,
     SubcategoriesModule,
     BrandsModule,
+    SizesModule,
   ],
   controllers: [],
   providers: [],
