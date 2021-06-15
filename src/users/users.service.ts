@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, OnModuleInit } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -12,12 +12,30 @@ import { LoginUserDto } from './dto/login-user.dto';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
-export class UsersService {
+export class UsersService implements OnModuleInit {
   constructor(
     @InjectModel(User.name) private userModel: Model<UserDocument>,
     private customersService: CustomersService,
     private jwtService: JwtService
   ) {}
+
+  async onModuleInit() {
+    if(process.env.NODE_ENV !== 'production') {
+      const super_admins = await this.userModel.find({role: UserRoles.SUPER_ADMIN})
+      if(super_admins.length === 0) {
+        const new_super_admin = new this.userModel({
+          user_name: 'superadmin',
+          first_name: 'superadmin',
+          last_name: 'superadmin',
+          email: 'superadmin@gmail.com',
+          password: await bcrypt.hash('superadmin', 10),
+          role: UserRoles.SUPER_ADMIN
+        })
+        await new_super_admin.save()
+        console.log('SUPER_ADMIN_CREATED: >> ', new_super_admin)
+      }
+    }
+  }
 
   async createCustomer(createUserDto: CreateUserDto) {
     const userExist = await this.userModel.findOne({

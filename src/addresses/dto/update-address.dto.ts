@@ -1,13 +1,9 @@
 import { IsMongoId, IsNumber, IsString, MinLength } from "class-validator"
 
 export class UpdateAddressDto {
-    @IsMongoId({})
-    user_id: string
-
     @IsString()
     @MinLength(4)
     street: string
-
 
     @IsString()
     @MinLength(3)

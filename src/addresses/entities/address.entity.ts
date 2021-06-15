@@ -1,10 +1,14 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import * as mongooose  from 'mongoose';
+import { Customer } from 'src/customers/entities/customer.entity';
 
-export type AddressDocument = Address & Document;
+export type AddressDocument = Address & mongooose.Document;
 
-@Schema()
+@Schema({timestamps: true})
 export class Address {
+  @Prop({type: mongooose.Schema.Types.ObjectId, ref: 'Customer'})
+  customer: Customer
+
   @Prop()
   street: string;
 
