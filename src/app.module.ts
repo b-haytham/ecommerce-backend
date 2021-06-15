@@ -7,6 +7,8 @@ import { JwtModule, JwtService } from '@nestjs/jwt';
 import { CustomersModule } from './customers/customers.module';
 import { CurrentUserMiddleware } from './middlewares/CurrentUserMiddleware';
 import { UsersService } from './users/users.service';
+import { CategoriesModule } from './categories/categories.module';
+import { SubcategoriesModule } from './subcategories/subcategories.module';
 
 @Module({
   imports: [
@@ -21,6 +23,8 @@ import { UsersService } from './users/users.service';
     }),
     AddressesModule,
     CustomersModule,
+    CategoriesModule,
+    SubcategoriesModule,
   ],
   controllers: [],
   providers: [],
