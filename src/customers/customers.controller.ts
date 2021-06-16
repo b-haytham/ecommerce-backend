@@ -1,4 +1,5 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/users/auth/jwt-auth.gard';
 import { Roles } from 'src/users/auth/roles.decorator';
 import { RolesGuard } from 'src/users/auth/roles.guard';
@@ -7,6 +8,7 @@ import { CustomersService } from './customers.service';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
 
+@ApiTags('Customers')
 @Controller('api/customers')
 export class CustomersController {
   constructor(private readonly customersService: CustomersService) {}

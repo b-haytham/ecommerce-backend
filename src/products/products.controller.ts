@@ -26,6 +26,7 @@ import * as multer from 'multer';
 import { v4 as uuid } from 'uuid';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { CreateProductDto } from './dto/create-product.dto';
+import { ApiTags } from '@nestjs/swagger';
 
 export type UploadedProductFiles = {
   images: Array<Express.Multer.File>;
@@ -37,6 +38,7 @@ const editFileName = (req, file, callback) => {
   callback(null, name);
 };
 
+@ApiTags('Products')
 @Controller('api/products')
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}

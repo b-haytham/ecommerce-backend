@@ -2,7 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Put } from '@nestjs/
 import { SizesService } from './sizes.service';
 import { CreateSizeDto } from './dto/create-size.dto';
 import { UpdateSizeDto } from './dto/update-size.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Sizes')
 @Controller('api/sizes')
 export class SizesController {
   constructor(private readonly sizesService: SizesService) {}

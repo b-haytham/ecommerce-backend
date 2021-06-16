@@ -18,6 +18,7 @@ import * as express from 'express';
 import * as path from 'path';
 import * as multer from 'multer';
 import { v4 as uuid } from 'uuid'
+import { ApiTags } from '@nestjs/swagger';
 
 
 const editFileName = (req, file, callback) => {
@@ -25,6 +26,7 @@ const editFileName = (req, file, callback) => {
   callback(null, name);
 };
 
+@ApiTags('Brands')
 @Controller('api/brands')
 export class BrandsController {
   constructor(private readonly brandsService: BrandsService) {}
