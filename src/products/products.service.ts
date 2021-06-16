@@ -150,7 +150,6 @@ export class ProductsService {
 
   async updateImages(
     id: string,
-    updateProductDto: UpdateProductDto,
     files: UploadedProductFiles,
     request: express.Request,
   ) {
