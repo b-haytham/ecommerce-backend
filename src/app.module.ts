@@ -13,6 +13,7 @@ import { SizesModule } from './sizes/sizes.module';
 import { ProductsModule } from './products/products.module';
 import { ReviewsModule } from './reviews/reviews.module';
 import { CommentsModule } from './comments/comments.module';
+import { OrdersModule } from './orders/orders.module';
 
 import * as path from 'path'
 
@@ -39,6 +40,7 @@ import * as path from 'path'
     ProductsModule,
     ReviewsModule,
     CommentsModule,
+    OrdersModule,
   ],
   controllers: [],
   providers: [],
