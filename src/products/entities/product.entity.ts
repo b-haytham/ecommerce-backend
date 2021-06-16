@@ -2,6 +2,8 @@ import { Prop, raw, Schema, SchemaFactory } from "@nestjs/mongoose";
 import * as mongoose from 'mongoose'
 import { Brand } from "src/brands/entities/brand.entity";
 import { Category } from "src/categories/entities/category.entity";
+import { Comment } from "src/comments/entities/comment.entity";
+import { Review } from "src/reviews/entities/review.entity";
 import { Size } from "src/sizes/entities/size.entity";
 import { Subcategory } from "src/subcategories/entities/subcategory.entity";
 
@@ -78,6 +80,13 @@ export class Product {
         discount_percentage: { type: Number, default: null }
     }))
     discount_info: Record<string, any>
+
+
+    @Prop({type: [{type: mongoose.Schema.Types.ObjectId, ref: 'Review'}]})
+    reviews: Review[]
+
+    @Prop({type: [{type: mongoose.Schema.Types.ObjectId, ref: 'Comment'}]})
+    comments: Comment[]
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product)

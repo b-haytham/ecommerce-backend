@@ -11,6 +11,8 @@ import { BrandsModule } from './brands/brands.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { SizesModule } from './sizes/sizes.module';
 import { ProductsModule } from './products/products.module';
+import { ReviewsModule } from './reviews/reviews.module';
+import { CommentsModule } from './comments/comments.module';
 
 import * as path from 'path'
 
@@ -35,6 +37,8 @@ import * as path from 'path'
     BrandsModule,
     SizesModule,
     ProductsModule,
+    ReviewsModule,
+    CommentsModule,
   ],
   controllers: [],
   providers: [],
