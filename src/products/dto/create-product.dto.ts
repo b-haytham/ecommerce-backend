@@ -47,4 +47,9 @@ export class CreateProductDto {
         available_colors?: {name: string, hex_code: string}[]
     }
 
+    @IsNotEmptyObject()
+    discount_info: {
+        have_discount: boolean
+        discount_percentage?: number
+    }
 }

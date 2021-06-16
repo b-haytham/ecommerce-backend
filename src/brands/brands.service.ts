@@ -46,6 +46,12 @@ export class BrandsService {
     return brand;
   }
 
+  async findById(id: string) {
+    const brand = await this.brandModel.findById(id);
+    if (!brand) throw new NotFoundException('Brand Not Found');
+    return brand;
+  }
+
   async update(
     id: string,
     updateBrandDto: UpdateBrandDto,

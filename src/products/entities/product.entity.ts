@@ -46,6 +46,11 @@ export class Product {
     @Prop({required: true, default: 0})
     count: number
 
+
+    @Prop({required: true})
+    in_stock: boolean
+
+
     @Prop({type: mongoose.Schema.Types.ObjectId, ref: 'Brand', default: null})
     brand: Brand
 
@@ -67,6 +72,12 @@ export class Product {
         available_colors: [{ name: String, hex_code: String }] 
     }))
     color_info: Record<string, any>
+
+    @Prop(raw({
+        have_discount: { type: Boolean, default: false },
+        discount_percentage: { type: Number, default: null }
+    }))
+    discount_info: Record<string, any>
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product)
