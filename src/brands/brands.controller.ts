@@ -9,6 +9,7 @@ import {
   UploadedFile,
   Req,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { BrandsService } from './brands.service';
@@ -19,6 +20,10 @@ import * as path from 'path';
 import * as multer from 'multer';
 import { v4 as uuid } from 'uuid'
 import { ApiTags } from '@nestjs/swagger';
+import { UserRoles } from 'src/users/entities/UserRoles';
+import { RolesGuard } from 'src/users/auth/roles.guard';
+import { Roles } from 'src/users/auth/roles.decorator';
+import { JwtAuthGuard } from 'src/users/auth/jwt-auth.gard';
 
 
 const editFileName = (req, file, callback) => {
@@ -32,6 +37,8 @@ export class BrandsController {
   constructor(private readonly brandsService: BrandsService) {}
 
   @Post()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRoles.SUPER_ADMIN, UserRoles.ADMIN)
   @UseInterceptors(
     FileInterceptor('image', {
       storage: multer.diskStorage({
@@ -61,6 +68,8 @@ export class BrandsController {
   }
 
   @Put(':id')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRoles.SUPER_ADMIN, UserRoles.ADMIN)
   @UseInterceptors(
     FileInterceptor('image', {
       storage: multer.diskStorage({
@@ -81,6 +90,8 @@ export class BrandsController {
   }
 
   @Delete(':id')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRoles.SUPER_ADMIN, UserRoles.ADMIN)
   remove(@Param('id') id: string, @Req() request: express.Request) {
     return this.brandsService.remove(id, request);
   }
