@@ -20,6 +20,8 @@ export class UsersController {
   }
 
   @Post('admins')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRoles.SUPER_ADMIN)
   createAdmin(@Body(ValidationPipe) createUserDto: CreateUserDto) {
     return this.usersService.createAdmin(createUserDto)
   }
@@ -39,20 +41,27 @@ export class UsersController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRoles.ADMIN)
   findAll(@Request() req) {
+    console.log(req.user)
     return this.usersService.findAll();
   }
 
   @Get(':id')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRoles.ADMIN, UserRoles.SUPER_ADMIN)
   findOne(@Param('id') id: string) {
     return this.usersService.findOne(id);
   }
 
   @Patch(':id')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRoles.ADMIN, UserRoles.SUPER_ADMIN, UserRoles.CUSTOMER)
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.usersService.update(+id, updateUserDto);
   }
 
   @Delete(':id')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRoles.ADMIN, UserRoles.SUPER_ADMIN)
   remove(@Param('id') id: string) {
     return this.usersService.remove(+id);
   }

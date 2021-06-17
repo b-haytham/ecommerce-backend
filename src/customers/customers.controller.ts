@@ -20,22 +20,28 @@ export class CustomersController {
 
   @Get()
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(UserRoles.ADMIN)
+  @Roles(UserRoles.ADMIN, UserRoles.SUPER_ADMIN)
   findAll() {
     return this.customersService.findAll();
   }
 
   @Get(':id')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRoles.SUPER_ADMIN, UserRoles.ADMIN)
   findOne(@Param('id') id: string) {
     return this.customersService.findOne(id);
   }
 
   @Patch(':id')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRoles.CUSTOMER, UserRoles.SUPER_ADMIN, UserRoles.ADMIN)
   update(@Param('id') id: string, @Body() updateCustomerDto: UpdateCustomerDto) {
     return this.customersService.update(+id, updateCustomerDto);
   }
 
   @Delete(':id')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRoles.CUSTOMER, UserRoles.SUPER_ADMIN, UserRoles.ADMIN)
   remove(@Param('id') id: string) {
     return this.customersService.remove(+id);
   }

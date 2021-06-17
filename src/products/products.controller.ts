@@ -8,6 +8,7 @@ import {
   Put,
   Req,
   UploadedFiles,
+  UseGuards,
   UseInterceptors,
   ValidationPipe,
 } from '@nestjs/common';
@@ -27,6 +28,10 @@ import { v4 as uuid } from 'uuid';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { CreateProductDto } from './dto/create-product.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { JwtAuthGuard } from 'src/users/auth/jwt-auth.gard';
+import { RolesGuard } from 'src/users/auth/roles.guard';
+import { UserRoles } from 'src/users/entities/UserRoles';
+import { Roles } from 'src/users/auth/roles.decorator';
 
 export type UploadedProductFiles = {
   images: Array<Express.Multer.File>;
@@ -44,6 +49,8 @@ export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
   @Post()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRoles.ADMIN, UserRoles.SUPER_ADMIN)
   @UseInterceptors(
     FileFieldsInterceptor(
       [
@@ -79,6 +86,8 @@ export class ProductsController {
   }
 
   @Put(':id/images')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRoles.ADMIN, UserRoles.SUPER_ADMIN)
   @UseInterceptors(
     FileFieldsInterceptor(
       [
@@ -104,6 +113,8 @@ export class ProductsController {
   }
 
   @Put(':id/main-info')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRoles.ADMIN, UserRoles.SUPER_ADMIN)
   updateMainInfo(
     @Param('id') id: string,
     @Body(ValidationPipe) updateMainInfo: UpdateMainInfo,
@@ -113,6 +124,8 @@ export class ProductsController {
   }
 
   @Put(':id/count-info')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRoles.ADMIN, UserRoles.SUPER_ADMIN)
   updateCount(
     @Param('id') id: string,
     @Body(ValidationPipe) updateCountDto: UpdateCountDto,
@@ -122,6 +135,8 @@ export class ProductsController {
   }
 
   @Put(':id/brand')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRoles.ADMIN, UserRoles.SUPER_ADMIN)
   updateBrand(
     @Param('id') id: string,
     @Body(ValidationPipe) updateBrandDto: UpdateBrandDto,
@@ -131,6 +146,8 @@ export class ProductsController {
   }
 
   @Put(':id/category_info')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRoles.ADMIN, UserRoles.SUPER_ADMIN)
   updateCatgeoriesSubCategories(
     @Param('id') id: string,
     @Body(ValidationPipe)
@@ -145,6 +162,8 @@ export class ProductsController {
   }
 
   @Put(':id/size_info')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRoles.ADMIN, UserRoles.SUPER_ADMIN)
   updateSize(
     @Param('id') id: string,
     @Body(ValidationPipe) updateSizeInfoDto: UpdateSizeInfoDto,
@@ -154,6 +173,8 @@ export class ProductsController {
   }
 
   @Put(':id/color_info')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRoles.ADMIN, UserRoles.SUPER_ADMIN)
   updateColor(
     @Param('id') id: string,
     @Body(ValidationPipe) updateColorInfoDto: UpdateColorInfoDto,
@@ -163,6 +184,8 @@ export class ProductsController {
   }
 
   @Put(':id/discout_info')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRoles.ADMIN, UserRoles.SUPER_ADMIN)
   updateDiscount(
     @Param('id') id: string,
     @Body(ValidationPipe) updateDiscountDto: UpdateDiscountDto,
@@ -172,6 +195,8 @@ export class ProductsController {
   }
 
   @Delete(':id')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRoles.ADMIN, UserRoles.SUPER_ADMIN)
   remove(@Param('id') id: string, @Req() req: express.Request) {
     return this.productsService.remove(id, req);
   }
