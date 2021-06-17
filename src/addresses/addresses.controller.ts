@@ -1,8 +1,10 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe, Put, UseGuards } from '@nestjs/common';
 import { ApiBadRequestResponse, ApiBody, ApiCreatedResponse, ApiOkResponse, ApiTags, ApiUnauthorizedResponse } from '@nestjs/swagger';
+import { CurrentUser } from 'src/users/auth/current-user.decorator';
 import { JwtAuthGuard } from 'src/users/auth/jwt-auth.gard';
 import { Roles } from 'src/users/auth/roles.decorator';
 import { RolesGuard } from 'src/users/auth/roles.guard';
+import { User, UserDocument } from 'src/users/entities/user.entity';
 import { UserRoles } from 'src/users/entities/UserRoles';
 import { AddressesService } from './addresses.service';
 import { CreateAddressDto } from './dto/create-address.dto';
@@ -20,8 +22,8 @@ export class AddressesController {
   @ApiCreatedResponse({description: 'created succesfully'})
   @ApiUnauthorizedResponse({description: 'Unauthorized'})
   @ApiBadRequestResponse({description: 'Bad Request'})
-  create(@Body(ValidationPipe) createAddressDto: CreateAddressDto) {
-    return this.addressesService.create(createAddressDto);
+  create(@Body(ValidationPipe) createAddressDto: CreateAddressDto, @CurrentUser() user: User) {
+    return this.addressesService.create(createAddressDto, user);
   }
 
   @Get()
@@ -38,7 +40,7 @@ export class AddressesController {
   @ApiUnauthorizedResponse()
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRoles.CUSTOMER, UserRoles.SUPER_ADMIN, UserRoles.ADMIN)
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: string, @CurrentUser() currentUser: UserDocument) {
     return this.addressesService.findOne(id);
   }
 
