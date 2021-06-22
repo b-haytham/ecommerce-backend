@@ -1,7 +1,7 @@
 
 ## Description
 
-clothing ecommerce api built with [Nest](https://github.com/nestjs/nest) framework TypeScript.
+clothing ecommerce api built with [Nest](https://github.com/nestjs/nest) framework TypeScript, MongoDB (mongoose ORM)
 
 ## Installation
 
